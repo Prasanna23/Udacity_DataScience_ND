@@ -11,6 +11,7 @@ LC_Geographial_Analysis.ipynb - Jupyter notebook with regional analysis.
 LC_Borrower_Analysis.ipynb - Jupyter notebook with my analysis on borrower behavior data
 
 >Project1_Vizs folder contains the images of all the visualizations made out of Lending Club's dataset.
+Lending_Analysis_blog.md - blog post detailing my analysis of LC data.
 
 ## Results
 
