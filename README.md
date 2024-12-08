@@ -13,6 +13,16 @@ LC_Borrower_Analysis.ipynb - Jupyter notebook with my analysis on borrower behav
 >Project1_Vizs folder contains the images of all the visualizations made out of Lending Club's dataset.
 Lending_Analysis_blog.md - blog post detailing my analysis of LC data.
 
+## Libraries Used:
+
+The following python libraries are used in this project.
+>seaborn-0.13.2
+matplotlib-3.9.3
+pandas-2.2.3
+plotly-5.24.1
+plotly express
+
+
 ## Results
 
 This analysis underscores the importance of combining regional, borrower, and macroeconomic data for informed lending. By incorporating these insights, lenders can design strategies that mitigate risk while expanding access in underserved regions. Future studies could enhance this by analyzing temporal trends or external factors such as economic shocks

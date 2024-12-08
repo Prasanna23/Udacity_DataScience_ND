@@ -31,7 +31,7 @@ A deep dive into Lending Club's data to uncover trends in loan performance, borr
 ### Geographical Analysis
 - We have borrower domicile data such as State and three digit zipcode available in the dataset. This can help us to analyze and see if there is any geographical trend exists in this dataset. This analysis will help to identify if there are any states where Lending club has more business penetration than other states in US.
 - The top 5 states where most of the loans are underwritten are CA,NY,TX,FL,IL
-  | State | Number of loans|
+  | Residence State | Number of loans|
   | --- | ---|
   |CA   | 314533
   |NY   | 186389
@@ -42,26 +42,26 @@ A deep dive into Lending Club's data to uncover trends in loan performance, borr
   ![Choropleth map of delinquent loans](interactive_by_state.png)
 - Data and map shows that higher delinquency rates are common in sun belt states except TX, another outlier is NY with higher rates of default. Maine & Iowa states have low delinquency rates.
 ***Highly delinquent states***
-    | addr_state|  is_delinquent|     loan_amnt|   int_rate|
+    | Residence State|  Delinquency Percent (%)|     Loan Amount|   Interest Rate|
     | --- | --- | ---| ---|
-    |  ==AL== |     ==15.741827==|  14686.235523|  13.567154
-    |    ==MS==|      ==15.483820==|  14750.150328|  13.445814
-    |   ==AR==|      ==15.444536==|  14094.558979|  13.354703
-    |     OK|      15.219177|  15014.517181|  13.263297
-    |    LA|      15.155868|  14831.564696|  13.224466|
-    |   NV |     14.640047|  14397.075665|  13.205397
-    |    NY |     14.317905|  14846.158840|  13.260060
-    |  NM   |   14.233272 | 14874.063491|  13.155975
-    |  FL   |   14.020532 | 14402.247656|  13.164735
-    |  HI   |   13.957630 | 15894.460067|  13.786782
+    |  ==AL== |     ==15.74==|  14686.24|  13.57
+    |    ==MS==|      ==15.48==|  14750.15|  13.45
+    |   ==AR==|      ==15.45==|  14094.56|  13.35
+    |     OK|      15.22|  15014.52|  13.26
+    |    LA|      15.16|  14831.57|  13.22|
+    |   NV |     14.64|  14397.076|  13.21
+    |    NY |     14.32|  14846.16|  13.26
+    |  NM   |   14.23 | 14874.06|  13.16
+    |  FL   |   14.02 | 14402.25|  13.17
+    |  HI   |   13.96 | 15894.46|  13.79
 ***Low delinquency states***
-|addr_state|  is_delinquent|     loan_amnt|   int_rate
+|Residence State|  Delinquency Percent (%)|     Loan Amount|   Interest Rate
 | --- | ---| --- | ---|
-|==ME== |      ==6.453559==|  14740.756936|  12.817557
-|==IA==  |     ==7.142857==|   8148.214286 | 12.631429
-|46  |       VT|       8.426170 | 13815.429411 | 12.986204
-| ID  |     8.588672|  14412.354921|  13.295014
-| DC  |     9.447349 | 15815.393951 | 12.578114
+|==ME== |      ==6.45==|  14740.76|  12.82
+|==IA==  |     ==7.14==|   8148.21 | 12.63
+|46  |       VT|       8.43 | 13815.43 | 12.99
+| ID  |     8.59|  14412.36|  13.30
+| DC  |     9.45 | 15815.39 | 12.58
 
 - I wanted to see how the average low amount value will vary by State and see how the loan amount stacks up for high and low delinquency rate states.
 - By plotting another choropleth graph we can observe that average values are higher in Alaska, Virginia and Hawaii whereas it's low in Iowa, Vermont and Montana
@@ -72,26 +72,26 @@ A deep dive into Lending Club's data to uncover trends in loan performance, borr
 - It's very safe to fund a loan originating out of DC than TX or NJ or HI.
 ***High loan amount averages***
 
-|addr_state |  is_delinquent |     loan_amnt |   int_rate
+|Residence State |  Delinquency Percent (%) |     Loan Amount |   Interest Rate
 | --- | --- | --- | --- |
-|AK |     13.171478|  17285.394762|  13.326289|
-|        VA|      13.222353|  16091.366315|  13.113697
-|    HI|      13.957630 | 15894.460067|  13.786782
-|      MD |     13.696119 | 15865.862465 |  13.236114
-|        NJ|      13.443680|  15832.747618 | 12.989854
-|        ==DC== |      ==9.447349== | ==15815.393951== | 12.578114
-|     TX|      12.907398|  15730.450667|  12.999444
-|      MA|      12.472965|  15675.628090|  12.676827
+|AK |     13.17|  17285.39|  13.32|
+|        VA|      13.22|  16091.36|  13.11
+|    HI|      13.95 | 15894.46|  13.79
+|      MD |     13.70 | 15865.86 |  13.24
+|        NJ|      13.44|  15832.75 | 12.99
+|        ==DC== |      ==9.44== | ==15815.39== | 12.58
+|     TX|      12.90|  15730.45|  12.99
+|      MA|      12.47|  15675.63|  12.68
 
 ***Low loan amount averages***
 
-|addr_state|  is_delinquent|     loan_amnt|   int_rate|
+|Residence State|  Delinquency Percent (%)|     Loan Amount|   Interest Rate|
 | --- | --- | --- | --- |
-|        ==IA== |      ==7.142857== |  ==8148.214286==|  12.631429
-| ==VT== |       ==8.426170== | ==13815.429411== | 12.986204
-|       MT |     11.081124 | 13997.590887 | 12.956177
-|   AR |      15.444536 |  14094.558979 |  13.354703
-|       OR  |     9.671880 | 14165.025757 |  12.954578
+|        ==IA== |      ==7.14== |  ==8148.21==|  12.63
+| ==VT== |       ==8.43== | ==13815.43== | 12.99
+|       MT |     11.08 | 13997.59 | 12.96
+|   AR |      15.45 |  14094.56 |  13.36
+|       OR  |     9.67 | 14165.03 |  12.96
 
 #### Interest rate analysis by state
 - Average interest rate is stable across US states with low being 12.6 and high being 13.8
@@ -102,30 +102,30 @@ A deep dive into Lending Club's data to uncover trends in loan performance, borr
 - Apart from state, we have three digit zip code information available in the dataset. This shows us that there are some zip codes which looks ultra safe and some are very risky from data. 
   ***Zip codes with high delinquency rates***
 
-| is_delinquent | loan_amnt |   int_rate | 3_dig_zip |
+| Delinquency Percent (%) | Loan Amount |   Interest Rate | Zip code (3 digit) |
  | --- | --- | --- | --- | 
-| 100.000000  |12000.000000|  11.440000|       513
-|   100.000000 |  21000.000000|  18.240000   |    516
-| 100.000000 | 12000.000000 | 14.490000    |   524
-|100.000000|  15000.000000|  18.250000 |      568
-|   100.000000|   9750.000000|  15.800000 |      643
-| 100.000000|   7000.000000|   6.990000|       682
-| 100.000000 | 13500.000000 | 13.980000|       889
-|    100.000000|  15000.000000|  20.990000|       938
+| 100.00  |12000.00|  11.44|       513
+|   100.00 |  21000.00|  18.24   |    516
+| 100.00 | 12000.00 | 14.49    |   524
+|100.00|  15000.00|  18.25 |      568
+|   100.00|   9750.00|  15.80 |      643
+| 100.00|   7000.00|   6.99|       682
+| 100.00 | 13500.00 | 13.98|       889
+|    100.00|  15000.00|  20.99|       938
 
 ***Zip codes with low delinquency rates***
-| is_delinquent|     loan_amnt|   int_rate| 3_dig_zip
+| Delinquency Percent (%)|     Loan Amount|   Interest Rate| Zip code (3 digit)
  | --- | --- | --- | --- |
-|0.0  |14812.500000|  16.355000|       009
-|0.0 | 16000.000000|  13.990000 |      055
-| 0.0 | 16244.230769|  13.610769 |      092
-|    0.0|  19960.000000|  15.442000|       093
-|   0.0 | 21433.333333|   9.080000|       095
-|0.0 | 12500.000000|   6.990000|       202
-|      0.0|  14500.000000 | 13.990000 |      269
-|0.0 |  18555.555556 | 14.174444 |       340
-|    0.0|  21000.000000|  12.914000|       348
-| 0.0 |  2100.000000|   9.990000|       375
+|0.0  |14812.50|  16.36|       009
+|0.0 | 16000.00|  13.99 |      055
+| 0.0 | 16244.23|  13.61 |      092
+|    0.0|  19960.00|  15.44|       093
+|   0.0 | 21433.33|   9.08|       095
+|0.0 | 12500.00|   6.99|       202
+|      0.0|  14500.00 | 13.99 |      269
+|0.0 |  18555.56 | 14.17 |       340
+|    0.0|  21000.00|  12.91|       348
+| 0.0 |  2100.00|   9.99|       375
 
 - Looking closely into the data shows us that these ultra safe(137 loans) and risky areas(8 loans) don't have a lot of loans disbursed and infact they're incomparable to the dataset volume.
   
@@ -162,6 +162,9 @@ A deep dive into Lending Club's data to uncover trends in loan performance, borr
 - Loan defaults are more prevalent in sun belt states and State of NY. Delinquency rates are very low in Maine and Iowa.
 - Zip code analysis can be extended to see which Zip codes are doing well and not.
 - This analysis underscores the importance of combining regional, borrower, and macroeconomic data for informed lending. By incorporating these insights, lenders can design strategies that mitigate risk while expanding access in underserved regions. Future studies could enhance this by analyzing temporal trends or external factors such as economic shocks
+
+#### Blog post
+Medium blog post of my analysis can be accessed via this link - https://medium.com/@randomwonders/exploring-loan-delinquency-with-data-driven-insights-eaa188637ca8
 
 #### Acknowledgements:
 Lending Club Kaggle dataset from the below link 
