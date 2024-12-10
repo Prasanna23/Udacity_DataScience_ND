@@ -27,6 +27,10 @@ plotly express
 
 This analysis underscores the importance of combining regional, borrower, and macroeconomic data for informed lending. By incorporating these insights, lenders can design strategies that mitigate risk while expanding access in underserved regions. Future studies could enhance this by analyzing temporal trends or external factors such as economic shocks
 
+Medium blog post on my analysis based on the results from the notebooks in this folder can be accessed via the below link.
+https://medium.com/@randomwonders/exploring-loan-delinquency-with-data-driven-insights-eaa188637ca8
+
+
 #### Acknowledgements:
 Lending Club Kaggle dataset from the below link.
 https://www.kaggle.com/datasets/wordsforthewise/lending-club
