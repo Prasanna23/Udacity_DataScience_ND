@@ -115,7 +115,7 @@ print(df.shape[0] - df_dedup.shape[0])
 
 # %%
 engine = create_engine('sqlite:///Disaster_Database.db')
-df.to_sql('Disaster_Msg', engine, index=False)
+df.to_sql('Disaster_Msg', engine, if_exists='replace',index=False)
 
 # %% [markdown]
 # ### 8. Use this notebook to complete `process_data.py`

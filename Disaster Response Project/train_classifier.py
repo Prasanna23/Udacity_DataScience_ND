@@ -1,12 +1,32 @@
 import sys
+import sqlalchemy
+import re
+from sqlalchemy import create_engine 
+import pandas as pd
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.multioutput import MultiOutputClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import classification_report
+import pickle
 
 
 def load_data(database_filepath):
-    engine = create_engine('sqlite:///Disaster_Database.db')
+    engine = create_engine('sqlite:///' + database_filepath)
+    #engine = create_engine('sqlite:///Disaster_Database.db')
     df = pd.read_sql_table('Disaster_Msg',engine)
+    df['message'] = df['message'].fillna('')  # Replace NaN with empty string
+    df.iloc[:,4:] = df.iloc[:,4:].fillna(0)
     df['message'] = df['message'].astype(str)
     X = df['message']
     Y = df.iloc[:,4:]   
+    category_names = Y.columns # This will be used for visualization purpose
+    print(type(X),type(Y),type(category_names))
+    return X, Y, category_names
 
 
 def tokenize(text):
@@ -47,18 +67,19 @@ def build_model():
             )
         ))
     ])
+    return pipeline
 
 
 def evaluate_model(Y_test, Y_pred, y_columns):
     print("Detailed Classification Report:")
     for i, col in enumerate(y_columns):
         print(f"\nMetrics for {col}:")
-        print(classification_report(y_test.iloc[:, i], y_pred[:, i]))
+        print(classification_report(Y_test.iloc[:, i], Y_pred[:, i]))
 
 
 def save_model(model, model_filepath):
-    with open('RF_model.pkl','wb') as f:
-        pickle.dump(pipeline,f)
+    with open(model_filepath,'wb') as f:
+        pickle.dump(model,f)
 
 
 def main():
@@ -70,15 +91,16 @@ def main():
         
         print('Building model...')
         model = build_model()
+        print(model)
         
         print('Training model...')
         model.fit(X_train, Y_train)
         
         print('...predicting..')
-        y_pred = pipeline.predict(X_test)
+        y_pred = model.predict(X_test)
         
         print('Evaluating model...')
-        evaluate_model(Y_test, Y_pred, Y.columns)
+        evaluate_model(Y_test, y_pred, Y.columns)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
         save_model(model, model_filepath)
