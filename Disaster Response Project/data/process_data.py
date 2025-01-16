@@ -5,6 +5,16 @@ from sqlalchemy import create_engine
 
 
 def load_data(messages_filepath, categories_filepath):
+    """
+    Loads the messages and categories csv file into pandas dataframe.
+
+    Args:
+        messages_filepath: file path for the messages csv file
+        categories_filepath: file path for the categories csv file
+
+    Returns:
+        Pandas DataFrame: Dataframe with messages and categories data combined together
+    """
     messages = pd.read_csv(messages_filepath)
     messages.head()
     # load categories dataset
@@ -18,7 +28,9 @@ def load_data(messages_filepath, categories_filepath):
     categories.columns = category_colnames
     for column in categories:
         # set each value to be the last character of the string
-        categories[column] = categories[column].str[-1:]
+        categories[column] = categories[column].str[-1]
+        # Drop rows where related category has value of 2
+        categories =categories[categories['related'] != 2]
         # convert column from string to numeric
         categories[column] = categories[column].astype(int)
     df.drop('categories',axis=1,inplace=True)
@@ -27,6 +39,15 @@ def load_data(messages_filepath, categories_filepath):
 
 
 def clean_data(df):
+    """
+    cleans the pandas dataframe by removing duplicates and returns a pandas dataframe.
+
+    Args:
+        df: dataframe to clean up
+
+    Returns:
+        Pandas DataFrame: Dataframe with cleaned up data
+    """
     duplicates = df.duplicated()
     duplicate_rows = df[duplicates]
     # drop duplicates
@@ -38,6 +59,16 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+    """
+    Saves the dataframe into a sqllite db with table name - Disaster_Msg.
+
+    Args:
+        df: dataframe to clean up
+        database_filename: database file path and name.
+
+    Returns:
+        None
+    """
     engine = create_engine('sqlite:///'+ database_filename)
     df.to_sql('Disaster_Msg', engine, if_exists='replace',index=False)  
 

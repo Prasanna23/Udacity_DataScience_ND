@@ -13,9 +13,22 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report
 import pickle
+from sklearn.model_selection import GridSearchCV
+
 
 
 def load_data(database_filepath):
+    """
+    Loads the sqllite database into a pandas dataframe.
+
+    Args:
+        database_filepath: file path for the sqllite database
+        
+    Returns:
+        X: Messages data
+        Y: Categories data
+        category_names: Names of categories
+    """
     engine = create_engine('sqlite:///' + database_filepath)
     #engine = create_engine('sqlite:///Disaster_Database.db')
     df = pd.read_sql_table('Disaster_Msg',engine)
@@ -30,6 +43,15 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    """
+    Takes the input text and returns tokens.
+
+    Args:
+     (str)  text: Text that you want to tokenize
+        
+    Returns:
+        tokens: cleaned up tokens for the input text.
+    """
             # Initialize lemmatizer
     lemmatizer = WordNetLemmatizer()
     
@@ -51,6 +73,15 @@ def tokenize(text):
 
 
 def build_model():
+    """
+    Builds models and returns the model for further use.
+
+    Args:
+     None
+        
+    Returns:
+        pipeline: TF-IDF RF classifier model.
+    """
     pipeline = Pipeline([
         # TF-IDF Vectorization with custom tokenizer
         ('tfidf', TfidfVectorizer(
@@ -71,13 +102,34 @@ def build_model():
 
 
 def evaluate_model(Y_test, Y_pred, y_columns):
+    """
+    evaluate model and do prediction based on test data
+
+    Args:
+     Y_test : Test dataset
+     Y_pred : predicted dataset
+     y_columns: column names 
+        
+    Returns:
+        None
+    """
     print("Detailed Classification Report:")
     for i, col in enumerate(y_columns):
         print(f"\nMetrics for {col}:")
         print(classification_report(Y_test.iloc[:, i], Y_pred[:, i]))
-
+    
 
 def save_model(model, model_filepath):
+    """
+    Save the model as .pkl file in the model path
+
+    Args:
+     model : model that you want to save 
+     model_filepath :  path name for output model file
+        
+    Returns:
+        None
+    """
     with open(model_filepath,'wb') as f:
         pickle.dump(model,f)
 
@@ -99,6 +151,15 @@ def main():
         print('...predicting..')
         y_pred = model.predict(X_test)
         
+        parameters =  { 
+        'classifier__estimator__n_estimators': [25, 50,100,150],
+        'classifier__estimator__max_depth': [3, 6, 9], 
+        'classifier__estimator__max_leaf_nodes': [3, 6, 9], 
+        } 
+
+        cv = GridSearchCV(estimator=model, param_grid=parameters, scoring='accuracy', cv=2, n_jobs=-1)
+        cv.fit(X_train, Y_train)
+        print("Best Hyperparameters:", cv.best_params_)
         print('Evaluating model...')
         evaluate_model(Y_test, y_pred, Y.columns)
 
